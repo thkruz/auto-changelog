@@ -1,4 +1,5 @@
 const { Command } = require('commander')
+const importCwd = require('import-cwd')
 const { version } = require('../package.json')
 const { fetchRemote } = require('./remote')
 const { fetchTags } = require('./tags')
@@ -16,7 +17,8 @@ const DEFAULT_OPTIONS = {
   sortCommits: 'relevance',
   appendGitLog: '',
   appendGitTag: '',
-  config: '.auto-changelog'
+  config: '.auto-changelog',
+  plugins: []
 }
 
 const PACKAGE_FILE = 'package.json'
@@ -41,11 +43,13 @@ const getOptions = async argv => {
     .option('--issue-pattern <regex>', 'override regex pattern for issues in commit messages')
     .option('--breaking-pattern <regex>', 'regex pattern for breaking change commits')
     .option('--merge-pattern <regex>', 'add custom regex pattern for merge commits')
+    .option('--commit-pattern <regex>', 'pattern to include when parsing commits')
     .option('--ignore-commit-pattern <regex>', 'pattern to ignore when parsing commits')
     .option('--tag-pattern <regex>', 'override regex pattern for version tags')
     .option('--tag-prefix <prefix>', 'prefix used in version tags')
     .option('--starting-version <tag>', 'specify earliest version to include in changelog')
     .option('--starting-date <yyyy-mm-dd>', 'specify earliest date to include in changelog')
+    .option('--ending-version <tag>', 'specify latest version to include in changelog')
     .option('--sort-commits <property>', `sort commits by property [relevance, date, date-desc], default: ${DEFAULT_OPTIONS.sortCommits}`)
     .option('--release-summary', 'use tagged commit message body as release summary')
     .option('--unreleased-only', 'only output unreleased changes')
@@ -56,6 +60,7 @@ const getOptions = async argv => {
     .option('--append-git-tag <string>', 'string to append to git tag command')
     .option('--prepend', 'prepend changelog to output file')
     .option('--stdout', 'output changelog to stdout')
+    .option('--plugins [name...]', 'use plugins to augment commit/merge/release information')
     .version(version)
     .parse(argv)
     .opts()
@@ -74,7 +79,8 @@ const getOptions = async argv => {
   return {
     ...options,
     ...remote,
-    latestVersion
+    latestVersion,
+    plugins: options.plugins.map(p => importCwd(`auto-changelog-${p}`))
   }
 }
 

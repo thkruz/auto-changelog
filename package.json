@@ -1,6 +1,6 @@
 {
   "name": "auto-changelog-thkruz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fork of auto-changelog for special use. Recommend using the original auto-changelog!",
   "main": "./src/index.js",
   "bin": {
@@ -20,14 +20,7 @@
     "version": "node src/index.js --package && git add CHANGELOG.md",
     "generate-test-data": "cross-env NODE_ENV=test node scripts/generate-test-data.js"
   },
-  "author": "Theodore Kruczek <theodore.kruczek@gmail.com> (https://github.com/thkruz)",
-  "contributors": [
-    {
-      "name": "Pete Cook",
-      "email": "pete@cookpete.com",
-      "url": "https://github.com/cookpete"
-    }
-  ],
+  "author": "Pete Cook (https://github.com/cookpete)",
   "homepage": "https://github.com/CookPete/auto-changelog",
   "repository": {
     "type": "git",
@@ -52,6 +45,7 @@
   "dependencies": {
     "commander": "^7.2.0",
     "handlebars": "^4.7.7",
+    "import-cwd": "^3.0.0",
     "node-fetch": "^2.6.1",
     "parse-github-url": "^1.0.2",
     "semver": "^7.3.5"
@@ -64,8 +58,8 @@
     "chai": "^4.3.4",
     "codecov": "^3.8.2",
     "cross-env": "^7.0.3",
-    "markdownlint-cli": "^0.27.1",
-    "mocha": "^8.4.0",
+    "markdownlint-cli": "^0.30.0",
+    "mocha": "^9.2.0",
     "nyc": "^15.1.0",
     "snazzy": "^9.0.0",
     "standard": "^16.0.3"

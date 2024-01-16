@@ -65,6 +65,16 @@ describe('parseCommits', () => {
     const result = parseCommits(gitLog, options)
     expect(result.filter(c => c.subject === 'Some **BREAKING** change')).to.have.length(1)
   })
+
+  it('supports commitPattern option', async () => {
+    const gitLog = await readFile(join(__dirname, 'data', 'git-log.txt'))
+    const options = {
+      commitPattern: 'First',
+      ...remotes.github
+    }
+    const result = parseCommits(gitLog, options)
+    expect(result).to.have.length(1)
+  })
 })
 
 describe('getFixes', () => {
@@ -311,7 +321,7 @@ describe('getMerge', () => {
 
 describe('getSubject', () => {
   it('returns commit subject', () => {
-    const message = 'Commit message\n\nCloses ABC-1234'
+    const message = ' Commit message\n\nCloses ABC-1234'
     expect(getSubject(message)).to.equal('Commit message')
   })
 

@@ -37,11 +37,13 @@ Options:
       --issue-pattern [regex]         # override regex pattern for issues in commit messages
       --breaking-pattern [regex]      # regex pattern for breaking change commits
       --merge-pattern [regex]         # add custom regex pattern for merge commits
+      --commit-pattern [regex]        # pattern to include when parsing commits
       --ignore-commit-pattern [regex] # pattern to ignore when parsing commits
       --tag-pattern [regex]           # override regex pattern for version tags
       --tag-prefix [prefix]           # prefix used in version tags, default: v
       --starting-version [tag]        # specify earliest version to include in changelog
       --starting-date [yyyy-mm-dd]    # specify earliest date to include in changelog
+      --ending-version [tag]          # specify latest version to include in changelog
       --sort-commits [property]       # sort commits by property [relevance, date, date-desc, subject, subject-desc], default: relevance
       --release-summary               # display tagged commit message body as release summary
       --unreleased-only               # only output unreleased changes
@@ -52,6 +54,7 @@ Options:
       --append-git-tag [string]       # string to append to git tag command
       --prepend                       # prepend changelog to output file
       --stdout                        # output changelog to stdout
+      --plugins [...name]             # use plugins to augment commit/merge/release information
   -V, --version                       # output the version number
   -h, --help                          # output usage information
 
